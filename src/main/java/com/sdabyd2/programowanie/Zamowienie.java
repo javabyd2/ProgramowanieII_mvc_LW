@@ -5,8 +5,12 @@ import java.util.List;
 
 public class Zamowienie {
     List<Pozycja> pozycja = new ArrayList<Pozycja>();
+    Pozycja pozycjaP = new Pozycja();
     private int ileDodanychPozycjiWZamowieniu;
     private int maksymalnaLiczbaPozycjiWZamowieniu;
+    private int zsumowanaIlosc;
+
+
 
     public Zamowienie() { //konstruktor bezparametrowy
         maksymalnaLiczbaPozycjiWZamowieniu = 10;
@@ -21,10 +25,12 @@ public class Zamowienie {
         sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna();
     }
 
-    public void sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna(){
+    public void sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna() {
+
         for (int i = 0; i < pozycja.size(); i++) {
+            zsumowanaIlosc +=pozycja.get(i).getIleSztuk();
             for (int j = 0; j < pozycja.size(); j++) {
-                if (pozycja.get(i).getNazwaTowaru().equals(pozycja.get(j).getNazwaTowaru())&&i!=j) {
+                if (pozycja.get(i).getNazwaTowaru().equals(pozycja.get(j).getNazwaTowaru()) && i != j) {
                     pozycja.get(i).setIleSztuk(pozycja.get(i).getIleSztuk() + pozycja.get(j).getIleSztuk());
                     pozycja.remove(j);
 
@@ -39,7 +45,7 @@ public class Zamowienie {
             calkowitaWartoscZamowienia += pozycja.get(i).obliczWartosc();
         }
 
-        return calkowitaWartoscZamowienia;
+        return calkowitaWartoscZamowienia*pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc);
     }
 
     @Override
@@ -48,7 +54,7 @@ public class Zamowienie {
         for (int i = 0; i < pozycja.size(); i++) {
             System.out.println(pozycja.get(i));
         }
-        return "\nRazem: " + obliczWartoscCala() + " zł";
+        return "\nRazem: " + obliczWartoscCala() + " zł"+" Rabat wynosi: " + pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc);
     }
 
     public void usunPozycje(Pozycja p) {

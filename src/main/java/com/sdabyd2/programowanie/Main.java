@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NullPointerException {
 
         System.out.println(String.format("%-20s%-10s%-10s%-10s","Nazwa towaru:","Cena:","Sztuk:","Suma:"));
         Pozycja pozycja1 = new Pozycja("Chleb", 1, 3.5);
@@ -20,6 +20,13 @@ public class Main {
         System.out.println(pozycja4);
         Pozycja pozycja5 = new Pozycja("Chleb", 1, 3.5);
         System.out.println(pozycja5);
+        Pozycja pozycja6 = new Pozycja("Jablka", 4, 2.5);
+        System.out.println(pozycja6);
+
+        Pozycja pozycja7 = new Pozycja("Jajka", 6, 0.90);
+        System.out.println(pozycja7);
+        Pozycja pozycja8 = new Pozycja("Plyn", 1, 3.5);
+        System.out.println(pozycja8);
 
         Zamowienie zamowienie = new Zamowienie(10);
 
@@ -28,6 +35,9 @@ public class Main {
         zamowienie.dodajPozycje(pozycja3);
         zamowienie.dodajPozycje(pozycja4);
         zamowienie.dodajPozycje(pozycja5);
+        zamowienie.dodajPozycje(pozycja6);
+        zamowienie.dodajPozycje(pozycja7);
+        zamowienie.dodajPozycje(pozycja8);
         zamowienie.edytujPozycje(2,"Kurczak",2,10);
         zamowienie.usunPozycje(pozycja4);
         System.out.println(zamowienie);
