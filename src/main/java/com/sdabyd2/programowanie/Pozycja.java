@@ -17,7 +17,7 @@ public class Pozycja {
 
     @Override
     public String toString(){
-        return String.format("%-20s%-10s%-4s%-10s",getNazwaTowaru(),getCena()+" zł",getIleSztuk()+" szt.",obliczWartosc(/*getIleSztuk(),getCena()*/));
+        return String.format("%-20s%-10s%-10s%-10s",getNazwaTowaru(),getCena()+" zł",getIleSztuk()+" szt.",obliczWartosc(/*getIleSztuk(),getCena()*/)+"zł");
     }
 
     public String getNazwaTowaru() {

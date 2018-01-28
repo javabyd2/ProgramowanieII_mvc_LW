@@ -32,16 +32,17 @@ public class Zamowienie {
 
     @Override
     public String toString() {
-
-            return "\nZamówienie: " + pozycja+ "\nRazem: " + obliczWartoscCala()+" zł";
+                return "\nZamówienie: \n" + pozycja+ "\nRazem: " + obliczWartoscCala() + " zł";
+    }
+    public void usunPozycje(int podajPozycjeDoUsuniecia){
 
     }
 
-    public int getIleDodanychPozycjiWZamowieniu() {
-        return ileDodanychPozycjiWZamowieniu;
-    }
-
-    public void setIleDodanychPozycjiWZamowieniu(int ileDodanychPozycjiWZamowieniu) {
-        this.ileDodanychPozycjiWZamowieniu = ileDodanychPozycjiWZamowieniu;
-    }
+//    public int getIleDodanychPozycjiWZamowieniu() {
+//        return ileDodanychPozycjiWZamowieniu;
+//    }
+//
+//    public void setIleDodanychPozycjiWZamowieniu(int ileDodanychPozycjiWZamowieniu) {
+//        this.ileDodanychPozycjiWZamowieniu = ileDodanychPozycjiWZamowieniu;
+//    }
 }
