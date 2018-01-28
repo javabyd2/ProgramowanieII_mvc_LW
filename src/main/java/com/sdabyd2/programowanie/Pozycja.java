@@ -11,13 +11,13 @@ public class Pozycja {
         this.ileSztuk = ileSztuk;
         this.cena = cena;
     }
-    public double obliczWartosc(double ileSztukTowaruZostaloKupionych, double cenaJednegoProduktu){
-        return ileSztukTowaruZostaloKupionych*cenaJednegoProduktu;
+    public double obliczWartosc(){
+        return getIleSztuk()*getCena();
     }
 
     @Override
     public String toString(){
-        return String.format("%-20s%-10s%-4s%-10s",getNazwaTowaru(),getCena()+" zł",getIleSztuk()+" szt.",obliczWartosc(getIleSztuk(),getCena()));
+        return String.format("%-20s%-10s%-4s%-10s",getNazwaTowaru(),getCena()+" zł",getIleSztuk()+" szt.",obliczWartosc(/*getIleSztuk(),getCena()*/));
     }
 
     public String getNazwaTowaru() {

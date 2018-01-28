@@ -18,16 +18,15 @@ public class Zamowienie {
     }
 
     public void dodajPozycje(Pozycja p) {
-        //for (int i = 0; i < getIleDodanychPozycjiWZamowieniu(); i++) {
             pozycja.add(p);
-
     }
 
     public double obliczWartoscCala() {
         double calkowitaWartoscZamowienia = 0;
         for (int i = 0; i < pozycja.size(); i++) {
-            calkowitaWartoscZamowienia = calkowitaWartoscZamowienia + pozycja.get(i).obliczWartosc(pozycjaPozycja.getIleSztuk(), pozycjaPozycja.getCena());
+            calkowitaWartoscZamowienia +=pozycja.get(i).obliczWartosc();
         }
+
         return calkowitaWartoscZamowienia;
     }
 
