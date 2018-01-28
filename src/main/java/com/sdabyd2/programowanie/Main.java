@@ -17,13 +17,19 @@ public class Main {
         System.out.println(pozycja3);
 
         Pozycja pozycja4 = new Pozycja("Kurczak", 1, 10);
-        System.out.print(pozycja4);
+        System.out.println(pozycja4);
+        Pozycja pozycja5 = new Pozycja("Chleb", 1, 3.5);
+        System.out.println(pozycja5);
 
         Zamowienie zamowienie = new Zamowienie(10);
 
+        zamowienie.dodajPozycje(pozycja1);
+        zamowienie.dodajPozycje(pozycja2);
         zamowienie.dodajPozycje(pozycja3);
         zamowienie.dodajPozycje(pozycja4);
-
+        zamowienie.dodajPozycje(pozycja5);
+        zamowienie.edytujPozycje(2,"Kurczak",2,10);
+        zamowienie.usunPozycje(pozycja4);
         System.out.println(zamowienie);
     }
 }

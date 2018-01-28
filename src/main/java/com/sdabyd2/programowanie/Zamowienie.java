@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Zamowienie {
-    private Pozycja pozycjaPozycja;
     List<Pozycja> pozycja = new ArrayList<Pozycja>();
     private int ileDodanychPozycjiWZamowieniu;
     private int maksymalnaLiczbaPozycjiWZamowieniu;
@@ -18,13 +17,26 @@ public class Zamowienie {
     }
 
     public void dodajPozycje(Pozycja p) {
-            pozycja.add(p);
+        pozycja.add(p);
+        sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna();
+    }
+
+    public void sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna(){
+        for (int i = 0; i < pozycja.size(); i++) {
+            for (int j = 0; j < pozycja.size(); j++) {
+                if (pozycja.get(i).getNazwaTowaru().equals(pozycja.get(j).getNazwaTowaru())&&i!=j) {
+                    pozycja.get(i).setIleSztuk(pozycja.get(i).getIleSztuk() + pozycja.get(j).getIleSztuk());
+                    pozycja.remove(j);
+
+                }
+            }
+        }
     }
 
     public double obliczWartoscCala() {
         double calkowitaWartoscZamowienia = 0;
         for (int i = 0; i < pozycja.size(); i++) {
-            calkowitaWartoscZamowienia +=pozycja.get(i).obliczWartosc();
+            calkowitaWartoscZamowienia += pozycja.get(i).obliczWartosc();
         }
 
         return calkowitaWartoscZamowienia;
@@ -32,10 +44,22 @@ public class Zamowienie {
 
     @Override
     public String toString() {
-                return "\nZamówienie: \n" + pozycja+ "\nRazem: " + obliczWartoscCala() + " zł";
+        System.out.println("\nZamówienie:");
+        for (int i = 0; i < pozycja.size(); i++) {
+            System.out.println(pozycja.get(i));
+        }
+        return "\nRazem: " + obliczWartoscCala() + " zł";
     }
-    public void usunPozycje(int podajPozycjeDoUsuniecia){
 
+    public void usunPozycje(Pozycja p) {
+        pozycja.remove(p);
+    }
+
+    public void edytujPozycje(int indeks, String nazwaTowaru, int ileSztuk, double cena) {
+        pozycja.get(indeks).setNazwaTowaru(nazwaTowaru);
+        pozycja.get(indeks).setIleSztuk(ileSztuk);
+        pozycja.get(indeks).setCena(cena);
+        sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna();
     }
 
 //    public int getIleDodanychPozycjiWZamowieniu() {
