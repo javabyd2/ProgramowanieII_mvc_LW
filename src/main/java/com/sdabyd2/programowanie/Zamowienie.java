@@ -48,13 +48,24 @@ public class Zamowienie {
         return calkowitaWartoscZamowienia*pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc);
     }
 
+    public double obliczWartoscCalaBezRabatu() {
+        double calkowitaWartoscZamowienia = 0;
+        for (int i = 0; i < pozycja.size(); i++) {
+            calkowitaWartoscZamowienia += pozycja.get(i).obliczWartosc();
+        }
+
+        return calkowitaWartoscZamowienia;
+    }
+
+
+
     @Override
     public String toString() {
         System.out.println("\nZamówienie:");
         for (int i = 0; i < pozycja.size(); i++) {
             System.out.println(pozycja.get(i));
         }
-        return "\nRazem: " + obliczWartoscCala() + " zł"+" Rabat wynosi: " + pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc);
+        return "\nRazem: " + obliczWartoscCalaBezRabatu() + " zł"+" Rabat wynosi: " + pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc)+". Cena po rabacie wynosi: " + obliczWartoscCala();
     }
 
     public void usunPozycje(Pozycja p) {
