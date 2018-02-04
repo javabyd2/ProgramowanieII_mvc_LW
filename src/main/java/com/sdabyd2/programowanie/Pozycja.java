@@ -1,6 +1,14 @@
 package com.sdabyd2.programowanie;
 
-public class Pozycja {
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
+
+public class Pozycja implements Serializable {
 
     private String nazwaTowaru;
     private int ileSztuk;
@@ -35,7 +43,7 @@ public class Pozycja {
 
     @Override
     public String toString(){
-        return String.format("%-20s%-10s%-10s%-10s",getNazwaTowaru(),getCena()+" zł",getIleSztuk()+" szt.",obliczWartosc(/*getIleSztuk(),getCena()*/)+"zł");
+        return String.format("%-20s%-10s%-10s%-10s",getNazwaTowaru(),getCena()+" zł",getIleSztuk()+" szt.",obliczWartosc()+"zł");
     }
 
     public String getNazwaTowaru() {
@@ -68,5 +76,18 @@ public class Pozycja {
 
     public void setZsumowanaIloscSztuk(int zsumowanaIloscSztuk) {
         this.zsumowanaIloscSztuk = zsumowanaIloscSztuk;
+    }
+    @Override
+    public void zapiszZamowienie(Zamowienie zamowienie, String nazwaPliku) throws Exception {
+        Path path = Paths.get("D:\\Cwiczenia\\Programowanie_cwiczenia_rozne", nazwaPliku);
+        BufferedWriter writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE);
+        writer.write(String.valueOf(zamowienie));
+    }
+
+    @Override
+    public List<String> wczytajZamowienie(String nazwaPliku) throws IOException {
+        Path path= Paths.get("D:\\Cwiczenia\\Programowanie_cwiczenia_rozne",nazwaPliku);
+        List<String> lines = Files.readAllLines(path);
+        return lines;
     }
 }

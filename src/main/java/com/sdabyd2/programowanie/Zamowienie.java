@@ -1,15 +1,17 @@
 package com.sdabyd2.programowanie;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.nio.file.*;
 
-public class Zamowienie {
+public class Zamowienie  implements Serializable {
     List<Pozycja> pozycja = new ArrayList<Pozycja>();
     Pozycja pozycjaP = new Pozycja();
     private int ileDodanychPozycjiWZamowieniu;
     private int maksymalnaLiczbaPozycjiWZamowieniu;
     private int zsumowanaIlosc;
-
 
 
     public Zamowienie() { //konstruktor bezparametrowy
@@ -28,7 +30,7 @@ public class Zamowienie {
     public void sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna() {
 
         for (int i = 0; i < pozycja.size(); i++) {
-            zsumowanaIlosc +=pozycja.get(i).getIleSztuk();
+            zsumowanaIlosc += pozycja.get(i).getIleSztuk();
             for (int j = 0; j < pozycja.size(); j++) {
                 if (pozycja.get(i).getNazwaTowaru().equals(pozycja.get(j).getNazwaTowaru()) && i != j) {
                     pozycja.get(i).setIleSztuk(pozycja.get(i).getIleSztuk() + pozycja.get(j).getIleSztuk());
@@ -45,7 +47,7 @@ public class Zamowienie {
             calkowitaWartoscZamowienia += pozycja.get(i).obliczWartosc();
         }
 
-        return calkowitaWartoscZamowienia*pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc);
+        return calkowitaWartoscZamowienia * pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc);
     }
 
     public double obliczWartoscCalaBezRabatu() {
@@ -58,14 +60,14 @@ public class Zamowienie {
     }
 
 
-
     @Override
     public String toString() {
         System.out.println("\nZamówienie:");
         for (int i = 0; i < pozycja.size(); i++) {
             System.out.println(pozycja.get(i));
         }
-        return "\nRazem: " + obliczWartoscCalaBezRabatu() + " zł"+" Rabat wynosi: " + pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc)+". Cena po rabacie wynosi: " + obliczWartoscCala();
+        double rabat = (obliczWartoscCalaBezRabatu() - obliczWartoscCalaBezRabatu() * pozycjaP.obliczWartoscZRabatem(zsumowanaIlosc));
+        return "\nRazem: " + obliczWartoscCalaBezRabatu() + " zł" + " Rabat wynosi: " + rabat + ". Cena po rabacie wynosi: " + obliczWartoscCala();
     }
 
     public void usunPozycje(Pozycja p) {
@@ -79,11 +81,18 @@ public class Zamowienie {
         sprawdzCzyPozycjeSieNiePowtarzajaIZbierzWJedna();
     }
 
-//    public int getIleDodanychPozycjiWZamowieniu() {
-//        return ileDodanychPozycjiWZamowieniu;
-//    }
-//
-//    public void setIleDodanychPozycjiWZamowieniu(int ileDodanychPozycjiWZamowieniu) {
-//        this.ileDodanychPozycjiWZamowieniu = ileDodanychPozycjiWZamowieniu;
-//    }
+    @Override
+    public void zapiszZamowienie(Zamowienie zamowienie, String nazwaPliku) throws Exception {
+        Path path = Paths.get("D:\\Cwiczenia\\Programowanie_cwiczenia_rozne", nazwaPliku);
+        BufferedWriter writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE);
+        writer.write(String.valueOf(zamowienie));
+    }
+
+    @Override
+    public List<String> wczytajZamowienie(String nazwaPliku)throws IOException {
+        Path path= Paths.get("D:\\Cwiczenia\\Programowanie_cwiczenia_rozne",nazwaPliku);
+        List<String> lines = Files.readAllLines(path);
+        return lines;
+    }
+
 }
